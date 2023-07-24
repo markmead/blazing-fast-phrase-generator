@@ -80,33 +80,40 @@
         'prompt',
         'ready',
     ],
-    generatedPhrase: '',
+    partyTime: false,
+    generatedPhrase: '...',
     getPhrase() {
       this.generatedPhrase = `${this.firstWord[Math.floor(Math.random() * this.firstWord.length)]} ${this.secondWord[Math.floor(Math.random() * this.secondWord.length)]}`;
 
       if (this.generatedPhrase === 'blazing fast') {
-        const confettiDuration = 30 * 1000;
+        const confettiDuration = 10 * 1000;
         const confettiEnd = Date.now() + confettiDuration;
+
+        this.partyTime = true;
 
         (function confettiParty() {
           confetti({
-            particleCount: 7,
+            particleCount: 60,
             angle: 60,
-            spread: 55,
-            origin: { x: 0 }
+            spread: 60,
+            origin: { x: 0, y: 1 }
           });
 
           confetti({
-            particleCount: 7,
+            particleCount: 60,
             angle: 120,
-            spread: 55,
-            origin: { x: 1 }
+            spread: 60,
+            origin: { x: 1, y: 1 }
           });
 
           if (Date.now() < confettiEnd) {
             requestAnimationFrame(confettiParty);
           }
         }());
+
+        setTimeout(() => {
+          this.partyTime = false
+        }, confettiDuration)
       }
     }
   }"
@@ -128,7 +135,8 @@
 
       <button
         @click="getPhrase"
-        class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-600 text-white"
+        class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-600 text-white disabled:cursor-not-allowed disabled:opacity-75"
+        :disabled="partyTime"
       >
         Generate your own "blazing fast" phrase
       </button>
@@ -181,7 +189,7 @@
           </div>
 
           <p
-            class="text-lg/tight max-w-prose text-gray-700 dark:text-gray-200 mt-4"
+            class="text-xl/relaxed max-w-prose text-gray-700 dark:text-gray-200 mt-4"
           >
             Tired of the
             <span x-text="projectReplaces" class="underline"></span>? Well
