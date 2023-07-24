@@ -10,6 +10,8 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body
@@ -64,6 +66,34 @@
         'ready',
     ],
     generatedPhrase: '',
+    getPhrase() {
+      this.generatedPhrase = `${this.firstWord[Math.floor(Math.random() * this.firstWord.length)]} ${this.secondWord[Math.floor(Math.random() * this.secondWord.length)]}`
+
+      if (this.generatedPhrase === 'blazing fast') {
+        const confettiDuration = 30 * 1000;
+        const confettiEnd = Date.now() + confettiDuration;
+
+        (function confettiParty() {
+          confetti({
+            particleCount: 7,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+
+          confetti({
+            particleCount: 7,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+
+          if (Date.now() < confettiEnd) {
+            requestAnimationFrame(confettiParty);
+          }
+        }());
+      }
+    }
   }"
     class="p-6"
   >
@@ -82,10 +112,7 @@
       </p>
 
       <button
-        @click="
-        generatedPhrase =
-          `${firstWord[Math.floor(Math.random() * firstWord.length)]} ${secondWord[Math.floor(Math.random() * secondWord.length)]}`
-        "
+        @click="getPhrase"
         class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-600 text-white"
       >
         Generate your own "blazing fast" phrase
