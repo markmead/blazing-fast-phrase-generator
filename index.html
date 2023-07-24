@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔥 Blazing Fast Phrase Generator 🔥</title>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    x-data="{
+    firstWord: [
+        'blazing',
+        'super',
+        'ultra',
+        'mega',
+        'giga',
+        'hyper',
+        'uber',
+        'extreme',
+        'insanely',
+        'ridiculously',
+        'unbelievably',
+        'incredibly',
+        'absolutely',
+        'totally',
+        'completely',
+        'utterly',
+        'seriously',
+        'awesomely',
+        'amazingly',
+        'astonishingly',
+        'remarkably',
+        'exceptionally',
+        'extraordinarily',
+    ],
+    secondWord: [
+        'fast',
+        'quick',
+        'speedy',
+        'rapid',
+        'swift',
+        'brisk',
+        'nimble',
+        'expeditious',
+        'fleet',
+        'hasty',
+        'snappy',
+        'zippy',
+        'accelerated',
+        'agile',
+        'breakneck',
+        'express',
+        'fleet-footed',
+        'hurried',
+        'lively',
+        'prompt',
+    ],
+    generatedPhrase: '',
+  }"
+    class="p-6"
+  >
+    <div class="max-w-3xl mx-auto text-center space-y-8">
+      <h1 class="text-3xl font-black">
+        <span class="bg-yellow-300 px-2 py-0.5 rounded skew-x-3 inline-block">
+          🔥 Blazing Fast 🔥
+        </span>
+        Phrase Generator
+      </h1>
+
+      <p class="text-lg/tight max-w-prose">
+        No more need for "blazing fast" as your totally original JavaScript
+        package description, now you can generate your own "blazing fast" phrase
+        with this blazing fast phrase generator!
+      </p>
+
+      <button
+        @click="
+        generatedPhrase =
+          `${firstWord[Math.floor(Math.random() * firstWord.length)]} ${secondWord[Math.floor(Math.random() * secondWord.length)]}`
+        "
+        class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-600 text-white"
+      >
+        Generate your own "blazing fast" phrase
+      </button>
+
+      <p class="pt-8 border-t-2 border-black">
+        Your phrase is:
+        <span x-text="generatedPhrase" class="block font-black text-3xl"></span>
+      </p>
+
+      <template x-if="generatedPhrase === 'blazing fast'">
+        <p class="text-3xl font-black">
+          <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
+          We have a winner
+          <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
+        </p>
+      </template>
+    </div>
+  </body>
+</html>
