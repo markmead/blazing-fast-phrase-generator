@@ -18,7 +18,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script>
       tailwind.config = {
         darkMode: 'media',
@@ -80,9 +80,9 @@
         'prompt',
         'ready',
     ],
-    generatedPhrase: '...',
+    generatedPhrase: '',
     getPhrase() {
-      this.generatedPhrase = `${this.firstWord[Math.floor(Math.random() * this.firstWord.length)]} ${this.secondWord[Math.floor(Math.random() * this.secondWord.length)]}`
+      this.generatedPhrase = `${this.firstWord[Math.floor(Math.random() * this.firstWord.length)]} ${this.secondWord[Math.floor(Math.random() * this.secondWord.length)]}`;
 
       if (this.generatedPhrase === 'blazing fast') {
         const confettiDuration = 30 * 1000;
@@ -110,7 +110,7 @@
       }
     }
   }"
-    class="p-6 bg-white dark:bg-gray-900"
+    class="px-6 py-12 bg-white dark:bg-gray-900"
   >
     <div class="max-w-3xl mx-auto text-center space-y-8">
       <h1 class="text-3xl font-black text-gray-900">
@@ -133,21 +133,84 @@
         Generate your own "blazing fast" phrase
       </button>
 
-      <p
-        class="pt-8 border-t-2 border-gray-900 dark:border-white text-gray-900 dark:text-white text-xl"
-      >
-        Your phrase is... 🥁
-        <span x-text="generatedPhrase" class="block font-black text-3xl">
-        </span>
-      </p>
-
-      <template x-if="generatedPhrase === 'blazing fast'">
-        <p class="text-3xl font-black text-gray-900 dark:Text-white">
-          <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
-          We have a winner
-          <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
+      <div class="pt-8 border-t-2 border-gray-900 dark:border-white space-y-8">
+        <p class="text-gray-900 dark:text-white text-xl">
+          Your phrase is... 🥁
+          <span x-text="generatedPhrase" class="block font-black text-3xl">
+          </span>
         </p>
-      </template>
+
+        <div
+          class="p-4 rounded-xl bg-gray-100 border border-gray-900 dark:bg-gray-800 dark:border-white"
+          x-data="{
+            projectName: 'word-randomiser.js',
+            projectReplaces: 'using something else',
+            projectSize: '1.5kb',
+          }"
+        >
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label for="projectName" class="sr-only"> Name </label>
+
+              <input
+                type="text"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
+                x-model="projectName"
+              />
+            </div>
+
+            <div>
+              <label for="projectReplaces" class="sr-only"> Replaces </label>
+
+              <input
+                type="text"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
+                x-model="projectReplaces"
+              />
+            </div>
+
+            <div>
+              <label for="projectSize" class="sr-only"> Size </label>
+
+              <input
+                type="text"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
+                x-model="projectSize"
+              />
+            </div>
+          </div>
+
+          <p
+            class="text-lg/tight max-w-prose text-gray-700 dark:text-gray-200 mt-4"
+          >
+            Tired of the
+            <span x-text="projectReplaces" class="underline"></span>? Well
+            <span x-text="projectName" class="underline"></span> is the answers
+            you've been looking for! It's
+            <span
+              class="bg-yellow-300 px-2 py-0.5 rounded skew-x-3 inline-block font-black text-gray-900"
+              x-text="generatedPhrase"
+            >
+            </span>
+            and only <span x-text="projectSize" class="underline"></span>! Check
+            it out now!
+          </p>
+        </div>
+
+        <template x-if="generatedPhrase === 'blazing fast'">
+          <p class="text-3xl font-black text-gray-900 dark:text-white">
+            <template x-for="fireEmoji in 3">
+              <span class="animate-spin inline-block"> 🔥 </span>
+            </template>
+
+            We have a winner
+
+            <template x-for="fireEmoji in 3">
+              <span class="animate-spin inline-block"> 🔥 </span>
+            </template>
+          </p>
+        </template>
+      </div>
     </div>
   </body>
 </html>
