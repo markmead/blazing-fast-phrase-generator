@@ -19,6 +19,11 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'media',
+      }
+    </script>
   </head>
   <body
     x-data="{
@@ -75,7 +80,7 @@
         'prompt',
         'ready',
     ],
-    generatedPhrase: '',
+    generatedPhrase: '...',
     getPhrase() {
       this.generatedPhrase = `${this.firstWord[Math.floor(Math.random() * this.firstWord.length)]} ${this.secondWord[Math.floor(Math.random() * this.secondWord.length)]}`
 
@@ -105,17 +110,17 @@
       }
     }
   }"
-    class="p-6"
+    class="p-6 bg-white dark:bg-gray-900"
   >
     <div class="max-w-3xl mx-auto text-center space-y-8">
-      <h1 class="text-3xl font-black">
+      <h1 class="text-3xl font-black text-gray-900">
         <span class="bg-yellow-300 px-2 py-0.5 rounded skew-x-3 inline-block">
           🔥 Blazing Fast 🔥
         </span>
-        Phrase Generator
+        <span class="dark:text-white"> Phrase Generator </span>
       </h1>
 
-      <p class="text-lg/tight max-w-prose">
+      <p class="text-lg/tight max-w-prose text-gray-700 dark:text-gray-200">
         No more need for "blazing fast" as your totally original JavaScript
         package description, now you can generate your own "blazing fast" phrase
         with this blazing fast phrase generator!
@@ -128,13 +133,16 @@
         Generate your own "blazing fast" phrase
       </button>
 
-      <p class="pt-8 border-t-2 border-black">
-        Your phrase is:
-        <span x-text="generatedPhrase" class="block font-black text-3xl"></span>
+      <p
+        class="pt-8 border-t-2 border-gray-900 dark:border-white text-gray-900 dark:text-white text-xl"
+      >
+        Your phrase is... 🥁
+        <span x-text="generatedPhrase" class="block font-black text-3xl">
+        </span>
       </p>
 
       <template x-if="generatedPhrase === 'blazing fast'">
-        <p class="text-3xl font-black">
+        <p class="text-3xl font-black text-gray-900 dark:Text-white">
           <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
           We have a winner
           <span class="animate-spin inline-block"> 🔥🔥🔥 </span>
