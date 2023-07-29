@@ -1,3 +1,5 @@
+This is just a joke project.
+
 # Blazing Fast Phrase Generator
 
 No more need for "blazing fast" as your totally original JavaScript package
