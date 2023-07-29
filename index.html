@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🔥 Blazing Fast Phrase Generator 🔥</title>
+    <title>Blazing Fast Phrase Generator</title>
     <meta
       name="description"
-      content="Generate your own 'blazing fast' phrase for your JavaScript project with this blazing fast phrase generator!"
+      content="Generate your own 'blazing fast' phrase for your project with this blazing fast phrase generator!"
     />
 
     <link rel="icon" href="https://fav.farm/🔥" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Victor+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <script
       defer
@@ -19,12 +26,29 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
     <script>
       tailwind.config = {
-        darkMode: 'media',
+        theme: {
+          extend: {
+            fontFamily: {
+              mono: ['Victor Mono', 'ui-monospace', 'SFMono-Regular'],
+            },
+            animation: {
+              wiggle: 'wiggle 0.5s ease-in-out infinite',
+            },
+            keyframes: {
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-1deg)' },
+                '50%': { transform: 'rotate(1deg)' },
+              },
+            },
+          },
+        },
       }
     </script>
   </head>
+
   <body
     x-data="{
     firstWord: [
@@ -93,14 +117,14 @@
 
         (function confettiParty() {
           confetti({
-            particleCount: 60,
+            particleCount: 15,
             angle: 60,
             spread: 60,
             origin: { x: 0, y: 1 }
           });
 
           confetti({
-            particleCount: 60,
+            particleCount: 15,
             angle: 120,
             spread: 60,
             origin: { x: 1, y: 1 }
@@ -117,107 +141,120 @@
       }
     }
   }"
-    class="px-6 py-12 bg-white dark:bg-gray-900"
+    x-init="getPhrase"
+    class="bg-gray-950 font-mono ring-4 ring-gray-800 ring-inset"
   >
-    <div class="max-w-3xl mx-auto text-center space-y-8">
-      <h1 class="text-3xl font-black text-gray-900">
-        <span class="bg-yellow-300 px-2 py-0.5 rounded skew-x-3 inline-block">
-          🔥 Blazing Fast 🔥
-        </span>
-        <span class="dark:text-white"> Phrase Generator </span>
-      </h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 sm:min-h-screen">
+      <div class="p-4 sm:p-6 lg:p-8 grid place-content-center">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center">
+            <div class="text-3xl sm:text-5xl flex items-center flex-col gap-4">
+              <div> 🔥 🔥 🔥 </div>
 
-      <p class="text-lg/tight max-w-prose text-gray-700 dark:text-gray-200">
-        No more need for "blazing fast" as your totally original JavaScript
-        package description, now you can generate your own "blazing fast" phrase
-        with this blazing fast phrase generator!
-      </p>
+              <h1 class="font-bold text-gray-950">
+                <span
+                  class="px-2 py-0.5 skew-x-3 block bg-yellow-400 rounded inline-block leading-tight"
+                >
+                  Blazing Fast
+                </span>
 
-      <button
-        @click="getPhrase"
-        class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-600 text-white disabled:cursor-not-allowed disabled:opacity-75"
-        :disabled="partyTime"
+                <span class="text-white block mt-1.5"> Phrase Generator </span>
+              </h1>
+
+              <div> 🔥 🔥 🔥 </div>
+            </div>
+
+            <p
+              class="text-lg max-w-[60ch] mx-auto text-gray-700 dark:text-gray-200 mt-8"
+            >
+              No more need for "blazing fast" as your package description, now
+              you can generate your own "blazing fast" phrase with this blazing
+              fast phrase generator!
+            </p>
+
+            <button
+              @click="getPhrase"
+              class="text-lg font-bold rounded-lg px-5 py-3 bg-indigo-700 border-2 border-indigo-600 hover:border-indigo-700 text-white disabled:cursor-not-allowed disabled:opacity-75 mt-8 transition"
+              :disabled="partyTime"
+            >
+              Generate your own "blazing fast" phrase
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t-4 sm:border-t-0 sm:border-l-4 border-gray-800 p-4 sm:p-6 lg:p-8 grid place-content-center"
+        x-data="{
+          projectName: 'word-randomiser.js',
+          projectReplaces: 'using something else',
+          projectSize: '1.5kb',
+        }"
       >
-        Generate your own "blazing fast" phrase
-      </button>
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center">
+            <p class="text-lg text-white"> Your phrase is </p>
 
-      <div class="pt-8 border-t-2 border-gray-900 dark:border-white space-y-8">
-        <p class="text-gray-900 dark:text-white text-xl">
-          Your phrase is... 🥁
-          <span x-text="generatedPhrase" class="block font-black text-3xl">
-          </span>
-        </p>
+            <h2 class="font-bold text-3xl mt-4">
+              <span
+                x-text="generatedPhrase"
+                class="px-2 py-0.5 skew-x-3 block bg-yellow-400 rounded inline-block leading-tight"
+              ></span>
+            </h2>
+          </div>
 
-        <div
-          class="p-4 rounded-xl bg-gray-100 border border-gray-900 dark:bg-gray-800 dark:border-white"
-          x-data="{
-            projectName: 'word-randomiser.js',
-            projectReplaces: 'using something else',
-            projectSize: '1.5kb',
-          }"
-        >
-          <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
             <div>
-              <label for="projectName" class="sr-only"> Name </label>
+              <label for="projectName" class="text-white text-sm font-bold">
+                Name
+              </label>
 
               <input
                 type="text"
-                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full mt-1"
                 x-model="projectName"
               />
             </div>
 
             <div>
-              <label for="projectReplaces" class="sr-only"> Replaces </label>
+              <label for="projectSize" class="text-white text-sm font-bold">
+                Size
+              </label>
 
               <input
                 type="text"
-                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
-                x-model="projectReplaces"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full mt-1"
+                x-model="projectSize"
               />
             </div>
 
-            <div>
-              <label for="projectSize" class="sr-only"> Size </label>
+            <div class="sm:col-span-2">
+              <label for="projectReplaces" class="text-white text-sm font-bold">
+                Replaces
+              </label>
 
               <input
                 type="text"
-                class="rounded-lg dark:text-white dark:bg-gray-900 w-full"
-                x-model="projectSize"
+                class="rounded-lg dark:text-white dark:bg-gray-900 w-full mt-1"
+                x-model="projectReplaces"
               />
             </div>
           </div>
 
-          <p
-            class="text-xl/relaxed max-w-prose text-gray-700 dark:text-gray-200 mt-4"
+          <div
+            class="p-4 sm:p-6 lg:p-8 rounded-lg bg-gray-900 border-2 border-gray-800 mt-8"
           >
-            Tired of the
-            <span x-text="projectReplaces" class="underline"></span>? Well
-            <span x-text="projectName" class="underline"></span> is the answers
-            you've been looking for! It's
-            <span
-              class="bg-yellow-300 px-2 py-0.5 rounded skew-x-3 inline-block font-black text-gray-900"
-              x-text="generatedPhrase"
-            >
-            </span>
-            and only <span x-text="projectSize" class="underline"></span>! Check
-            it out now!
-          </p>
+            <p class="text-xl/relaxed max-w-prose text-white">
+              Tired of the
+              <span x-text="projectReplaces" class="underline"></span>? Well
+              <span x-text="projectName" class="underline"></span> is the
+              answers you've been looking for! It's
+              <span class="font-bold" x-text="generatedPhrase"></span>
+              and only <span x-text="projectSize" class="underline"></span>!
+              Check it out now!
+            </p>
+          </div>
         </div>
-
-        <template x-if="generatedPhrase === 'blazing fast'">
-          <p class="text-3xl font-black text-gray-900 dark:text-white">
-            <template x-for="fireEmoji in 3">
-              <span class="animate-spin inline-block"> 🔥 </span>
-            </template>
-
-            We have a winner
-
-            <template x-for="fireEmoji in 3">
-              <span class="animate-spin inline-block"> 🔥 </span>
-            </template>
-          </p>
-        </template>
       </div>
     </div>
   </body>
